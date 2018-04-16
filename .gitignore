@@ -1,0 +1,8 @@
+# autoenv
+.env
+
+# pycharm
+.idea/
+
+# virtualenv
+venv/

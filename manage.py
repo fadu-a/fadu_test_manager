@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import os
 import sys
+from decouple import config
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fadu_test_manager.settings")
+    DJANGO_ENV = config('DJANGO_ENV')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"config.settings.{DJANGO_ENV}")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

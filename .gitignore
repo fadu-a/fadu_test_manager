@@ -6,3 +6,6 @@
 
 # virtualenv
 venv/
+
+# sqllite
+db.sqlite3

@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'fadu_test_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fio',
         'USER': 'postgres',
         'PASSWORD': 'fadupeople',

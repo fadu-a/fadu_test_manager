@@ -5,4 +5,3 @@ admin.site.register(Test_io_logs)
 admin.site.register(Test_smart_logs)
 admin.site.register(Test_cases)
 admin.site.register(Test_error_logs)
-

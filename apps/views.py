@@ -1,11 +1,32 @@
 from django.shortcuts import render
 import urllib.request
 import json
+from urllib.error import HTTPError, URLError
 
 
-def testRunner_check(request):
-        webURL = urllib.request.urlopen('http://localhost:8000/runners/status')
-        data = webURL.read()
-        encoding = webURL.info().get_content_charset('utf-8')
-        json_data = json.loads(data.decode(encoding))
-        return render(request, 'apps/status.html', {'data': json_data})
+def runner_check(request):
+    URLs = ['http://localhost:8000', 'http://localhost:9000']
+    runners_status = []
+    runners_data = []
+
+    for url in URLs:
+        ip = url.split('//')[1].split(':')[0]
+        port = url.split(':')[2]
+        req = urllib.request.Request(url+'/runners/status')
+        try:
+            response = urllib.request.urlopen(req)
+            data = response.read()
+            encoding = response.info().get_content_charset('utf-8')
+            info = json.loads(data.decode(encoding))
+            status = "Successful"
+        except urllib.error.HTTPError as e:
+            status = "Failed"
+            info = ""
+        except urllib.error.URLError as e:
+            status = "Failed"
+            info = ""
+        runners_data.append({'ip': ip, 'port': port, 'status': status, 'info': info})
+
+
+    return render(request, 'apps/status.html', {'runners_data': runners_data})
+

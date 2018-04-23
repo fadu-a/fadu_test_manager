@@ -1,0 +1,8 @@
+<h1>Results</h1>
+<ul>
+    {% for result in datas %}
+    <li>
+       <a href="{% url 'result-detail' result.id %}">{{ result.Title }}</a>
+    </li>
+    {% endfor %}
+</ul>

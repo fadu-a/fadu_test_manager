@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import NewForm
 import urllib.request
 import json
 from urllib.error import HTTPError, URLError
@@ -30,3 +31,18 @@ def runner_check(request):
 
     return render(request, 'apps/status.html', {'runners_data': runners_data})
 
+
+def post_new(request):
+    if request.method == "POST":
+        request.POST._mutable = True
+        post_value = request.POST
+        post_value.update(configs=json.dumps(post_value['configs']))
+        form = NewForm(post_value)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.test_group_id = 1
+            post.save()
+            return redirect('new')
+    else:
+        form = NewForm()
+        return render(request, 'apps/new.html', {'form':form})

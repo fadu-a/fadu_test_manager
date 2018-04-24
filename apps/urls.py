@@ -4,5 +4,5 @@ from apps import views
 
 urlpatterns = [
     url('^$', views.runner_check, name='check'),
-    path('new/', views.post_new, name='new'),
+    path('testcase/new/', views.post_new, name='testcase_new'),
 ]

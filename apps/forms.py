@@ -1,7 +1,8 @@
 from django import forms
-from .models import Test_cases
+from .models import TestCases
+
 
 class NewForm(forms.ModelForm):
     class Meta:
-        model = Test_cases
+        model = TestCases
         fields = ('title', 'description', 'configs')

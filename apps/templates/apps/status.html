@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<body>
+    <h1>Test Runner List</h1>
+    <table border="1px" solid>
+        <thead>
+            <tr>
+                <td>Index</td>
+                <td>IP</td>
+                <td>Port</td>
+                <td>Connection Status</td>
+                <td>OS</td>
+                <td>Version</td>
+                <td>Release</td>
+            </tr>
+        </thead>
+        {% for runners in runners_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ runners.ip }}</td>
+                <td>{{ runners.port }}</td>
+                <td>{{ runners.status }}</td>
+                <td>{{ runners.info.system }}</td>
+                <td>{{ runners.info.version }}</td>
+                <td>{{ runners.info.release }}</td>
+            </tr>
+
+        {%  endfor %}
+    </table>
+
+</body>
+</html>

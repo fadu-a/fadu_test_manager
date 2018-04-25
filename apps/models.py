@@ -56,5 +56,3 @@ class TestSmartLogs(models.Model):
     test_cases = models.ForeignKey('TestCases', on_delete=models.CASCADE)
     Timestamp = models.DateTimeField()
     Data_units_read = models.IntegerField()
-
-

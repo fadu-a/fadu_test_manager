@@ -2,7 +2,9 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import TestIoLogs, TestCases
 from django.shortcuts import render
+import urllib.request
 import json
+from urllib.error import HTTPError, URLError
 
 
 @csrf_exempt
@@ -29,3 +31,30 @@ def view_detail(request, pk):
     data2['datas'] = data
     print(data2)
     return render(request, 'results/result_detail.html', data2)
+
+
+def runner_check(request):
+    URLs = ['http://localhost:8000', 'http://localhost:9000']
+    runners_status = []
+    runners_data = []
+
+    for url in URLs:
+        ip = url.split('//')[1].split(':')[0]
+        port = url.split(':')[2]
+        req = urllib.request.Request(url+'/runners/status')
+        try:
+            response = urllib.request.urlopen(req)
+            data = response.read()
+            encoding = response.info().get_content_charset('utf-8')
+            info = json.loads(data.decode(encoding))
+            status = "Successful"
+        except urllib.error.HTTPError as e:
+            status = "Failed"
+            info = ""
+        except urllib.error.URLError as e:
+            status = "Failed"
+            info = ""
+        runners_data.append({'ip': ip, 'port': port, 'status': status, 'info': info})
+
+
+    return render(request, 'apps/status.html', {'runners_data': runners_data})

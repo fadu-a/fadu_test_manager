@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 
 
-'''
 class TestSuits(models.Model):
     id = models.AutoField(primary_key=True)
     Title = models.CharField(max_length=200)
     Description = models.CharField(max_length=200)
     io_tester = models.CharField(max_length=10)
+
 
 class TestGroups(models.Model):
     id = models.AutoField(primary_key=True)
@@ -21,15 +21,6 @@ class TestGroups(models.Model):
 class TestCases(models.Model):
     id = models.AutoField(primary_key=True)
     Test_group_id = models.ForeignKey(TestGroups, on_delete=models.CASCADE)
-    Title = models.CharField(max_length=200)
-    Description = models.CharField(max_length=200)
-    Configs = JSONField()
-'''
-
-
-class TestCases(models.Model):
-    id = models.AutoField(primary_key=True)
-#    Test_group_id = models.ForeignKey(TestGroups, on_delete=models.CASCADE)
     Title = models.CharField(max_length=200)
     Description = models.CharField(max_length=200)
     Configs = JSONField()

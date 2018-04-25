@@ -1,0 +1,28 @@
+<h1>Results</h1>
+
+<table>
+  <tr>
+    <th>Timestamp</th>
+    <th>Percentile</th>
+    <th>Wr_iops</th>
+    <th>Wr_throughput</th>
+    <th>Wr_latency</th>
+    <th>Rd_iops</th>
+    <th>Rd_throughput</th>
+    <th>Rd_latency</th>
+  </tr>
+
+    {% for result in datas %}
+        <tr>
+        <td>{{ result.Timestamp }}</td>
+        <td>{{ result.Percentile }}</td>
+        <td>{{ result.Wr_iops }}</td>
+        <td>{{ result.Wr_throughput }}</td>
+        <td>{{ result.Wr_latency }}</td>
+        <td>{{ result.Rd_iops }}</td>
+        <td>{{ result.Rd_throughput }}</td>
+        <td>{{ result.Rd_latency }}</td>
+        </tr>
+
+    {% endfor %}
+</table>

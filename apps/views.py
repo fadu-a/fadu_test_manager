@@ -55,6 +55,9 @@ def runner_check(request):
             status = "Failed"
             info = ""
         runners_data.append({'ip': ip, 'port': port, 'status': status, 'info': info})
-
-
     return render(request, 'apps/status.html', {'runners_data': runners_data})
+
+
+def get_index(request):
+    list = TestCases.objects.all().order_by('-pk')
+    return render(request, 'apps/index.html', {'list': list})

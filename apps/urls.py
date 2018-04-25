@@ -9,5 +9,6 @@ urlpatterns = [
     path('results/', views.result_list, name='index3'),
     path('results/<int:pk>', views.view_detail, name='result-detail'),
     url('^$', views.runner_check, name='check'),
+    path('testcase/index/', views.get_index, name='index'),
 
 ]

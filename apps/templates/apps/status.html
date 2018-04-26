@@ -11,7 +11,7 @@
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
   <li><a href="testcase/index">TestCase</a></li>
-  <li><a href="results/1">Results</a></li>
+  <li><a href="testcase/results/">Results</a></li>
 </ol>
     <div id="wrapper">
     <h1>Test Runner List</h1>
@@ -41,12 +41,15 @@
                 <td>{{ runners.info.version }}</td>
                 <td>{{ runners.info.release }}</td>
             {% if runners.status != "Failed" %}
-                <td><a href="testcase/index" class="btn btn-success" role="button">SELECT</a></td>
+                <form action="/testcase/index" method="POST">
+                    {% csrf_token %}
+
+                    <td><a href="testcase/index" class="btn btn-success" role="button" type="submit">SELECT</a></td>
+                </form>
             {% else %}
                 <td></td>
             {% endif %}
-            </tr>
-         {%  endfor %}
+        {%  endfor %}
     </table>
     </div>
 </body>

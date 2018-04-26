@@ -36,23 +36,22 @@ def view_detail(request, pk):
 
 def runner_check(request):
     URLs = ['http://localhost:3000', 'http://localhost:8000', 'http://localhost:9000']
-    runners_status = []
     runners_data = []
 
     for url in URLs:
         ip = url.split('//')[1].split(':')[0]
         port = url.split(':')[2]
-        req = urllib.request.Request(url+'/runners/status')
+        req = urllib.request.Request(url + '/runners/status')
         try:
             response = urllib.request.urlopen(req)
             data = response.read()
             encoding = response.info().get_content_charset('utf-8')
             info = json.loads(data.decode(encoding))
             status = "Successful"
-        except urllib.error.HTTPError as e:
+        except HTTPError as e:
             status = "Failed"
             info = ""
-        except urllib.error.URLError as e:
+        except URLError as e:
             status = "Failed"
             info = ""
         runners_data.append({'ip': ip, 'port': port, 'status': status, 'info': info})
@@ -79,7 +78,7 @@ def post_new(request):
             post = form.save(commit=False)
             post.Test_group_id = 1
             post.save()
-            return redirect('index')
+            return redirect('testcase:index')
     else:
         form = NewForm()
         return render(request, 'apps/new.html', {'form': form})
@@ -96,7 +95,7 @@ def post_edit(request, id):
             post.id = id
             post.Test_group_id = 3
             post.save()
-            return redirect('index')
+            return redirect('testcase:index')
     else:
         row = TestCases.objects.get(id=id)
         form = NewForm(initial={'Title': row.Title, 'Description': row.Description, 'Configs': row.Configs})
@@ -106,4 +105,4 @@ def post_edit(request, id):
 def delete(request, id):
     delete_value = TestCases.objects.get(id=id)
     delete_value.delete()
-    return redirect('index')
+    return redirect('testcase:index')

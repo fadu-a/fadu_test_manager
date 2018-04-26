@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <h1>Script Detail</h1>
+    <h1>{{ id }}</h1>
+    <table class="table">
+    <thead>
+    <tr>
+       <td>Title</td>
+       <td>Description</td>
+       <td>Configs</td>
+    </tr>
+    {% for data in data_list %}
+    <tr>
+       <td>{{ data.Title }}</td>
+       <td>{{ data.Description }}</td>
+       <td>{{ data.Configs }}</td>
+    </tr>
+    {% endfor %}
+    </thead>
+</table>
+</body>
+</html>

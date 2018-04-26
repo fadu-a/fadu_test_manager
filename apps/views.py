@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import TestIoLogs, TestCases
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import urllib.request
 import json
 from urllib.error import HTTPError, URLError
+from .forms import NewForm
 
 
 @csrf_exempt
@@ -65,4 +66,44 @@ def get_index(request):
 
 def detail(request, id):
     data = TestCases.objects.filter(id=id)
-    return render(request, 'app/detail.html', {'data_list': data})
+    return render(request, 'apps/detail.html', {'data_list': data})
+
+
+def post_new(request):
+    if request.method == "POST":
+        request.POST._mutable = True
+        post_value = request.POST
+        post_value.update(Configs=json.dumps(post_value['Configs']))
+        form = NewForm(post_value)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.Test_group_id = 1
+            post.save()
+            return redirect('index')
+    else:
+        form = NewForm()
+        return render(request, 'apps/new.html', {'form': form})
+
+
+def post_edit(request, id):
+    if request.method == "POST":
+        request.POST._mutable = True
+        post_value = request.POST
+        post_value.update(Configs=json.dumps(post_value['Configs']))
+        form = NewForm(post_value)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.id = id
+            post.Test_group_id = 3
+            post.save()
+            return redirect('index')
+    else:
+        row = TestCases.objects.get(id=id)
+        form = NewForm(initial={'Title': row.Title, 'Description': row.Description, 'Configs': row.Configs})
+        return render(request, 'apps/edit.html', {'form': form})
+
+
+def delete(request, id):
+    delete_value = TestCases.objects.get(id=id)
+    delete_value.delete()
+    return redirect('index')

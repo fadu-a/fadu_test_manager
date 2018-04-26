@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-    <h1> Index page</h1>
-      <div>
+<html>
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <h1> Index page</h1>
+  <div>
       <table class="table">
         <thead>
             <td>INDEX</td>
+            <td>TITLE</td>
         </thead>
       <tbody>
       {% csrf_token %}
@@ -17,10 +15,11 @@
             <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ list_index.title }}</td>
+            <td><a href="/testcase/{{ list_index.id }}" class="btn btn-default" role="button">Show Detail</a></td>
+            <td><button class="btn btn-primary">SELECT</button></td>
             </tr>
         {% endfor %}
       </tbody>
       </table>
   </div>
-</body>
 </html>

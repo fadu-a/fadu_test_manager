@@ -35,7 +35,7 @@ def view_detail(request, pk):
 
 
 def runner_check(request):
-    URLs = ['http://localhost:8000', 'http://localhost:9000']
+    URLs = ['http://localhost:3000', 'http://localhost:8000', 'http://localhost:9000']
     runners_status = []
     runners_data = []
 

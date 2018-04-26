@@ -63,7 +63,6 @@ def get_index(request):
     return render(request, 'apps/index.html', {'list': list})
 
 
-def detail(request,id):
-    data = Test_cases.objects.filter(id=id)
-    return render(request, 'app/detail.html',{'data_list': data})
-
+def detail(request, id):
+    data = TestCases.objects.filter(id=id)
+    return render(request, 'app/detail.html', {'data_list': data})

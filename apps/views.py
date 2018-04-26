@@ -93,8 +93,8 @@ def post_edit(request, id):
         form = NewForm(post_value)
         if form.is_valid():
             post = form.save(commit=False)
-            post.id=id
-            post.Test_group_id=3
+            post.id = id
+            post.Test_group_id = 3
             post.save()
             return redirect('index')
     else:

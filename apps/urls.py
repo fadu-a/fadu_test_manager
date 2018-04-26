@@ -10,5 +10,5 @@ urlpatterns = [
     path('results/<int:pk>', views.view_detail, name='result-detail'),
     url('^$', views.runner_check, name='check'),
     path('testcase/index/', views.get_index, name='index'),
-
+    path('<id>/', views.detail, name='detail')
 ]

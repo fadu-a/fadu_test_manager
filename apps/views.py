@@ -61,3 +61,9 @@ def runner_check(request):
 def get_index(request):
     list = TestCases.objects.all().order_by('-pk')
     return render(request, 'apps/index.html', {'list': list})
+
+
+def detail(request,id):
+    data = Test_cases.objects.filter(id=id)
+    return render(request, 'app/detail.html',{'data_list': data})
+

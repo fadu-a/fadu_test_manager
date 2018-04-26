@@ -6,3 +6,11 @@
 
 # virtualenv
 venv/
+
+db.*
+
+*.egg-info
+*.pot
+*.py[co]
+.tox/
+__pycache__

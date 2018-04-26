@@ -1,0 +1,53 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/apps.css' %}">
+</head>
+<body>
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="testcase/index">TestCase</a></li>
+  <li><a href="results/1">Results</a></li>
+</ol>
+    <div id="wrapper">
+    <h1>Test Runner List</h1>
+    <table id="table" class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Index</td>
+                <td>IP</td>
+                <td>Port</td>
+                <td>Connection Status</td>
+                <td>OS</td>
+                <td>Version</td>
+                <td>Release</td>
+            </tr>
+        </thead>
+        {% for runners in runners_data %}
+            {% if runners.status == "Failed" %}
+                <tr class="danger">
+            {% else %}
+                <tr class="info">
+            {%  endif %}
+                <td>{{ forloop.counter }}</td>
+                <td>{{ runners.ip }}</td>
+                <td>{{ runners.port }}</td>
+                <td>{{ runners.status }}</td>
+                <td>{{ runners.info.system }}</td>
+                <td>{{ runners.info.version }}</td>
+                <td>{{ runners.info.release }}</td>
+            {% if runners.status != "Failed" %}
+                <td><a href="testcase/index" class="btn btn-success" role="button">SELECT</a></td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            </tr>
+         {%  endfor %}
+    </table>
+    </div>
+</body>
+</html>

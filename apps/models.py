@@ -20,7 +20,8 @@ class TestGroups(models.Model):
 
 class TestCases(models.Model):
     id = models.AutoField(primary_key=True)
-    Test_group_id = models.ForeignKey(TestGroups, on_delete=models.CASCADE)
+    # Test_group_id = models.ForeignKey(TestGroups, on_delete=models.CASCADE)
+    Test_group_id = models.IntegerField()
     Title = models.CharField(max_length=200)
     Description = models.CharField(max_length=200)
     Configs = JSONField()
@@ -47,3 +48,7 @@ class TestSmartLogs(models.Model):
     test_cases = models.ForeignKey('TestCases', on_delete=models.CASCADE)
     Timestamp = models.DateTimeField()
     Data_units_read = models.IntegerField()
+
+
+class Users(models.Model):
+    id = models.AutoField(primary_key=True)

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 
 <body>
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+    <div class="runner_info">
     <h1>Test Runner List</h1>
-    <table border="1px" solid>
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <td>Index</td>
@@ -15,7 +20,12 @@
             </tr>
         </thead>
         {% for runners in runners_data %}
-            <tr>
+            {% if runners.status == "Failed" %}
+                <tr class="danger">
+            {% else %}
+                <tr>
+            {%  endif %}
+
                 <td>{{ forloop.counter }}</td>
                 <td>{{ runners.ip }}</td>
                 <td>{{ runners.port }}</td>
@@ -24,9 +34,8 @@
                 <td>{{ runners.info.version }}</td>
                 <td>{{ runners.info.release }}</td>
             </tr>
-
-        {%  endfor %}
+         {%  endfor %}
     </table>
-
+    </div>
 </body>
 </html>

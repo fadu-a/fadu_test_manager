@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <h1> Index page</h1>
+    <div>
+        <table class="table">
+            <thead>
+                <td>INDEX</td>
+                <td>TITLE</td>
+            </thead>
+        <tbody>
+        {% csrf_token %}
+            {% for list_index in list %}
+                <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ list_index.Title }}</td>
+                <td><a href="/testcase/show/{{ list_index.id }}" class="btn btn-default" role="button">Show Detail</a></td>
+                <td><a href="/testcase/edit/{{ list_index.id }}" class="btn btn-default" role="button">Edit</a></td>
+                <td><a href="/testcase/delete/{{ list_index.id }}" class="btn btn-default" role="button">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="/testcase/new" class="btn btn-default" role="button">Create</a>
+    </div>
+</body>
+</html>

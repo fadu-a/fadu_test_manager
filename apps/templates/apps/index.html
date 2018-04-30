@@ -17,15 +17,16 @@
             </thead>
         <tbody>
         {% csrf_token %}
-            {% for list_index in list %}
-                <tr>
+        {% for list_index in list %}
+            <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ list_index.Title }}</td>
                 <td><a href="/testcase/show/{{ list_index.id }}" class="btn btn-default" role="button">Show Detail</a></td>
                 <td><a href="/testcase/edit/{{ list_index.id }}" class="btn btn-default" role="button">Edit</a></td>
                 <td><a href="/testcase/delete/{{ list_index.id }}" class="btn btn-default" role="button">Delete</a></td>
-                </tr>
-            {% endfor %}
+                <td><a href="/testcase/run/{{ list_index.id }}" class="btn btn-default" role="button">Run Test</a></td>
+            </tr>
+        {% endfor %}
         </tbody>
         </table>
     </div>

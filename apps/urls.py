@@ -13,5 +13,6 @@ urlpatterns = [
     path('testcase/new/', views.post_new, name='new'),
     path('testcase/edit/<id>/', views.post_edit, name='edit'),
     path('testcase/show/<id>/', views.detail, name='detail'),
-    path('testcase/delete/<id>/', views.delete, name='delete')
+    path('testcase/delete/<id>/', views.delete, name='delete'),
+    path('testcase/run/<id>/', views.run_test, name='run')
 ]

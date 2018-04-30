@@ -2,7 +2,7 @@
 <ul>
     {% for result in datas %}
     <li>
-       <a href="{% url 'testcase:result-detail' result.id %}">{{ result.Title }}</a>
+       <a href="{% url 'runners:result-detail' result.id %}">{{ result.Title }}</a>
     </li>
     {% endfor %}
 </ul>

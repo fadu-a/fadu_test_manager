@@ -6,6 +6,8 @@ import urllib.request
 import json
 from urllib.error import HTTPError, URLError
 from .forms import NewForm
+from collections import OrderedDict
+import requests
 
 
 @csrf_exempt
@@ -36,13 +38,13 @@ def view_detail(request, pk):
 
 
 def runner_check(request):
-    URLs = ['http://localhost:3000', 'http://localhost:8000', 'http://localhost:9000']
+    URLs = ['http://localhost:3000', 'http://localhost:8000', 'http://localhost:5000']
     runners_data = []
 
     for url in URLs:
         ip = url.split('//')[1].split(':')[0]
         port = url.split(':')[2]
-        req = urllib.request.Request(url + '/runners/status')
+        req = urllib.request.Request(url + '/status')
         try:
             response = urllib.request.urlopen(req)
             data = response.read()
@@ -103,7 +105,21 @@ def post_edit(request, id):
         return render(request, 'apps/edit.html', {'form': form})
 
 
-def delete(request, id):
+def delete(id):
     delete_value = TestCases.objects.get(id=id)
     delete_value.delete()
     return redirect('testcase:index')
+
+
+def run_test(request, id):
+    data = TestCases.objects.get(id=id)
+    configs = data.Configs.split(', ')
+    dic_configs = OrderedDict()
+    for list in configs:
+        list = list.split(':')
+        dic_configs[list[0]] = list[1]
+    json_data = json.dumps(dic_configs)
+    url = 'http://localhost:5000/start'
+    headers = {'content-type': 'application/json'}
+    res = requests.post(url, data=json_data, headers=headers)
+    return render(request, 'results/result_form.html', {'res': res})

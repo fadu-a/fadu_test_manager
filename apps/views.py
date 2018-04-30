@@ -14,10 +14,11 @@ def post_results(request, pk):
     data["test_cases_id"] = pk
     test = TestIoLogs.objects.create(**data)
     test.save()
+    print("test")
     return HttpResponse(request.POST)
 
 
-def result_list(request):
+def result_list(request, pk):
     servers = list(TestCases.objects.values('Title', 'id'))
     print(servers)
     servers2 = {}

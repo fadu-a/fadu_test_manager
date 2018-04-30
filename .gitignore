@@ -13,4 +13,9 @@ db.*
 *.pot
 *.py[co]
 .tox/
+
 __pycache__
+
+node_modules
+bundles
+webpack-stats.json

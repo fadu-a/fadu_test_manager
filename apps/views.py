@@ -20,6 +20,12 @@ def post_results(request, pk):
     return HttpResponse(request.POST)
 
 
+@csrf_exempt
+def post_results2(request, pk):
+    data = json.loads(request.body)
+    return render(request, 'results/result_rawdata.html', {"dictionary":data})
+
+
 def result_list(request, pk):
     servers = list(TestCases.objects.values('Title', 'id'))
     print(servers)

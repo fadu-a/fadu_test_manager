@@ -5,52 +5,56 @@
 
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="{% static 'css/apps.css' %}">
+   <link rel="stylesheet" href="{% static 'css/apps.css' %}">
 </head>
 <body>
 <ol class="breadcrumb">
-  <li><a href="/">Home</a></li>
-  <li><a href="testcase/index">TestCase</a></li>
-  <li><a href="testcase/results/">Results</a></li>
+ <li><a href="/">Home</a></li>
+ <li><a href="testcase/index">TestCase</a></li>
+ <li><a href="testcase/results/">Results</a></li>
 </ol>
-    <div id="wrapper">
-    <h1>Test Runner List</h1>
-    <table id="table" class="table table-bordered">
-        <thead>
-            <tr>
-                <td>Index</td>
-                <td>IP</td>
-                <td>Port</td>
-                <td>Connection Status</td>
-                <td>OS</td>
-                <td>Version</td>
-                <td>Release</td>
-            </tr>
-        </thead>
-        {% for runners in runners_data %}
-            {% if runners.status == "Failed" %}
-                <tr class="danger">
-            {% else %}
-                <tr class="info">
-            {%  endif %}
-                <td>{{ forloop.counter }}</td>
-                <td>{{ runners.ip }}</td>
-                <td>{{ runners.port }}</td>
-                <td>{{ runners.status }}</td>
-                <td>{{ runners.info.system }}</td>
-                <td>{{ runners.info.version }}</td>
-                <td>{{ runners.info.release }}</td>
-            {% if runners.status != "Failed" %}
-                <form action="/testcase/index" method="POST">
-                    {% csrf_token %}
+   <div id="wrapper">
+   <h1>Test Runner List</h1>
+   <table id="table" class="table table-bordered">
+       <thead>
+           <tr>
+               <td>Index</td>
+               <td>IP</td>
+               <td>Port</td>
+               <td>Connection Status</td>
+               <td>OS</td>
+               <td>Version</td>
+               <td>Release</td>
+           </tr>
+       </thead>
+       {% for runners in runners_data %}
+           {% if runners.status == "Failed" %}
+               <tr class="danger">
+           {% else %}
+               <tr class="info">
+           {%  endif %}
+               <td>{{ forloop.counter }}</td>
+               <td>{{ runners.ip }}</td>
+               <td>{{ runners.port }}</td>
+               <td>{{ runners.status }}</td>
+               <td>{{ runners.info.system }}</td>
+               <td>{{ runners.info.version }}</td>
+               <td>{{ runners.info.release }}</td>
 
-                    <td><a href="testcase/index" class="btn btn-success" role="button" type="submit">SELECT</a></td>
-                </form>
-            {% else %}
-                <td></td>
-            {% endif %}
-        {%  endfor %}
-    </table>
-    </div>
+           {% if runners.status != "Failed" %}
+               <td>
+                 <form action="/testcase/index/" method="POST">
+                   {% csrf_token %}
+                   <input type="hidden" name="ip" value="{{ runners.ip }}">
+                   <input type="hidden" name="port" value="{{ runners.port }}">
+                   <button type="submit" class="btn btn-success">SELECT</button>
+                 </form>
+               </td>
+           {% else %}
+               <td></td>
+           {% endif %}
+       {%  endfor %}
+   </table>
+   </div>
 </body>
 </html>

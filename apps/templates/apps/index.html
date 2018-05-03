@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
 <head>
+    <link rel="stylesheet" href="{% static 'css/apps.css' %}">
     <meta charset="UTF-8">
     <title>Index</title>
 </head>
 <body>
-    {% load bootstrap3 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+
+    <ol class="breadcrumb">
+        <li><a href="/runners">Home</a></li>
+        <li><a href="/testcase/index">TestCase</a></li>
+        <li><a href="/testcase/results/">Results</a></li>
+    </ol>
+    <div id="wrapper">
     <h1> Index page</h1>
     <div>
-        <table class="table">
+        <table class="table table-bordered" id="table">
+
             <thead>
                 <td>INDEX</td>
                 <td>TITLE</td>
@@ -24,15 +34,21 @@
                 <td><a href="/testcase/show/{{ list_index.id }}" class="btn btn-default" role="button">Show Detail</a></td>
                 <td><a href="/testcase/edit/{{ list_index.id }}" class="btn btn-default" role="button">Edit</a></td>
                 <td><a href="/testcase/delete/{{ list_index.id }}" class="btn btn-default" role="button">Delete</a></td>
-                <td><a href="/testcase/results/{{ list_index.id }}" class="btn btn-default" role="button">Result</a></td>
-                <td><a href="/testcase/run/{{ list_index.id }}" class="btn btn-default" role="button">Run Test</a></td>
+                {% if status.ip != null %}
+                  <td><a href="/testcase/run/{{ list_index.id }}/{{ status.ip }}/{{ status.port }}" class="btn btn-success" role="button">Run Test</a></td>
+                {% else %}
+                  <td></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
         </table>
     </div>
     <div>
-        <a href="/testcase/new" class="btn btn-default" role="button">Create</a>
+      <a href="/testcase/new" class="btn btn-default" role="button">Create</a>
+    </div>
+    <div>
+      <a>IP : {{ status.ip }}, PORT : {{ status.port }}</a>
     </div>
 </body>
 </html>

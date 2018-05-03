@@ -1,3 +1,16 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/apps.css' %}">
+</head>
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/testcase/index">TestCase</a></li>
+  <li><a href="">Results</a></li>
+</ol>
+
 <h1>Results</h1>
 
 <table>

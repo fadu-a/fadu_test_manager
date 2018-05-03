@@ -1,0 +1,33 @@
+<h1>Results</h1>
+
+<table>
+  <tr>
+    <th>Timestamp</th>
+    <th>BW</th>
+    <th>BW_dir</th>
+    <th>IOPS</th>
+    <th>IOPS_dir</th>
+    <th>LAT</th>
+    <th>LAT_dir</th>
+  </tr>
+    {% for key1, val1 in dictionary.items %}
+        <tr>
+        <td>{{ key1 }}</td>
+        {% for key2, val2 in val1.items %}
+            {% for key3, val3 in val2.items %}
+                {% if key3 == "dir" %}
+                    {% if val3 == "1" %}
+                        <td>WRITE</td>
+                    {% else %}
+                        <td>READ</td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ val3 }}</td>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+
+</table>
+

@@ -62,7 +62,11 @@ def runner_check(request):
 
 def get_index(request):
     list = TestCases.objects.all().order_by('-pk')
-    return render(request, 'apps/index.html', {'list': list})
+    if request.method == "POST":
+        status = request.POST
+        return render(request, 'apps/index.html', {'list': list, 'status': status})
+    else:
+        return render(request, 'apps/index.html', {'list': list})
 
 
 def detail(request, id):
@@ -110,7 +114,7 @@ def delete(id):
     return redirect('testcase:index')
 
 
-def run_test(request, id):
+def run_test(request, id, ip, port):
     data = TestCases.objects.get(id=id)
     configs = data.Configs.split(', ')
     dic_configs = OrderedDict()
@@ -118,7 +122,8 @@ def run_test(request, id):
         list = list.split(':')
         dic_configs[list[0]] = list[1]
     json_data = json.dumps(dic_configs)
-    url = 'http://localhost:5000/start'
-    headers = {'content-type': 'application/json'}
-    res = requests.post(url, data=json_data, headers=headers)
-    return render(request, 'results/result_form.html', {'res': res})
+    url = 'http://'+ip+':'+port+'/start'
+    headers = {'content-type':'application/json'}
+    res = requests.post(url, data = json_data, headers = headers)
+    data = json.loads(res.text, object_pairs_hook=OrderedDict)
+    return render(request, 'results/result_rawdata.html', {"dictionary": data})
